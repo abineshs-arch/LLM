@@ -1,57 +1,72 @@
 ---
 
-# Week 4 - Day 2: Transformer attention
+# Week 4 - Day 2 (Part 2): Encoder vs decoder, positional encoding, Transformers vs RNNs
 
-## Task 1 - Self-attention from scratch (`task1_self_attention.py`)
-- 4 token vectors of size 3 (`np.random.seed(0)`), random Wq, Wk, Wv (3x3)
-- Q = X·Wq, K = X·Wk, V = X·Wv -> scores = Q·Kᵀ / √3 -> softmax per row -> output = weights·V
+## Task 1 - Encoder vs decoder and positional encoding (`task1_encoder_decoder.py`)
 
-**Attention weight matrix (4x4):**
+| | Encoder-only (BERT-style) | Decoder-only (GPT-style) |
+|---|---|---|
+| How it reads | Whole sentence at once, in **both directions** (every token sees every token) | **Left to right** only; a causal mask hides future tokens |
+| What it outputs | A context vector for every token -> a label, a filled-in word, an embedding | The **next token**, again and again -> new text |
+| Best tasks | Classification, NER, sentiment, search / embeddings, fill-mask | Chat, drafting emails and replies, summaries, code generation |
+| Example models | BERT, DistilBERT, RoBERTa | GPT-2, GPT-6, Claude, Llama, Gemini |
 
-| | token 1 | token 2 | token 3 | token 4 |
-|---|---|---|---|---|
-| token 1 | 0.001 | 0.999 | 0.000 | 0.000 |
-| token 2 | 0.257 | 0.000 | 0.000 | 0.743 |
-| token 3 | 0.265 | 0.335 | 0.099 | 0.300 |
-| token 4 | 0.000 | 1.000 | 0.000 | 0.000 |
+**Positional encoding:** sinusoidal, 10 positions x 8 dimensions
+(`PE[pos, 2i] = sin(pos / 10000^(2i/8))`, `PE[pos, 2i+1] = cos(...)`) -> heatmap `positional_encoding.png`.
+Row 0 = [0, 1, 0, 1, ...]; every position gets a different pattern; the left dimensions change fast, the right ones slowly.
 
-Row sums: [1, 1, 1, 1] -> verified with `np.allclose` = True.
+**Why word order is lost without positional encoding**
+1. Self-attention compares every token with every other token using only their vectors.
+2. It has no built-in notion of "first", "second" or "next to".
+3. So "dog bites man" and "man bites dog" contain the same vectors and would get the same attention scores.
+4. Adding a unique position pattern to each token vector lets the model know where each word is.
 
-**Diagram:** `self_attention_diagram.png` (X -> Q/K/V -> scores -> softmax -> weights·V -> output)
+**Example - encoder (BERT fill-mask):** "The customer was angry because the [MASK] arrived broken."
+-> glass 0.174, window 0.039, ice 0.024, clock 0.015, bottle 0.014.
+BERT used the words on **both sides** ("arrived broken") and guessed things that break -> good at understanding.
 
-**Query, Key and Value - library analogy**
-1. **Query** is the question you bring to the library: "I need books about rivers".
-2. **Key** is the label on each book's spine that says what the book is about.
-3. Comparing your query with every key (dot product) gives a score: how well each book matches.
-4. Softmax turns the scores into percentages that add up to 100%, so you know how much to read from each book.
-5. **Value** is the actual content of each book; the output is a weighted mix of the contents of the best-matching books.
+**Example - decoder (GPT-2 generation):** "Dear customer, we are sorry that your order arrived broken. We will"
+-> "...be contacting you to resolve the issue. Thank you for your patience."
+GPT-2 wrote a fluent continuation one token at a time -> good at writing.
 
-## Task 2 - Multi-head attention (`task2_multi_head.py`)
-- 4-dimensional model split into **2 heads of 2 dimensions**; each head runs attention on its own columns of Q, K, V
-- Head outputs are **concatenated** (4x2 + 4x2 -> 4x4) and multiplied by an **output projection** Wo
-- Head 1 focused almost entirely on token 3; Head 2 spread its attention over all tokens -> different patterns
+## Task 2 - Transformers vs RNNs (`task2_lstm_vs_transformer.py`)
+Toy task: is a sequence of 8 digits sorted? 8,000 train / 2,000 test sequences (49% sorted; hard negatives
+are "almost sorted" with one neighbour swap). Same data, Adam lr 1e-3, batch 64, 15 epochs, CPU.
 
-**Hugging Face** (`bert-base-uncased`, `output_attentions=True`, sentence "The bank by the river was steep"):
-- 12 layers, each attention tensor has shape (1, 12, 9, 9) = (batch, heads, tokens, tokens)
-- Layer 9, head 1, word "bank": [SEP] 0.811, [CLS] 0.099, the 0.027, the 0.020, by 0.020, ...
-- This head "parks" most attention on [SEP] (a known BERT pattern when a head has nothing useful to look at);
-  other heads are the ones that link "bank" to "river" - which is exactly why we need several heads.
+| Model | Parameters | Test accuracy | Training time |
+|---|---|---|---|
+| LSTM (1 layer, hidden 64) | 25,473 | **0.999** | **6.5 s** |
+| TransformerEncoder (2 layers, 4 heads, d_model 32) | 17,697 | 0.994 | 22.9 s |
 
-**Why several heads are better than one**
-1. Each head has its own Wq, Wk, Wv, so it can learn a different kind of relationship (grammar, meaning, position).
-2. One head can link "bank" to "river" while another links "bank" to "steep" or to the next word.
-3. With one head, softmax forces a single attention pattern; several heads look at several things at the same time.
-4. The outputs are concatenated and projected, so the model combines all these views into one richer representation.
+**Result:** on this tiny task the LSTM was slightly more accurate and 3.5x faster. The sequences are short (8 digits)
+and sortedness only needs neighbour comparisons, which an RNN reads naturally; on a CPU with tiny models the
+attention overhead costs more than the parallelism saves. Transformers win on long texts, large models and GPUs.
 
-**What the mask does in decoder attention**
-A decoder (like GPT) writes text one token at a time, so a token must not see the words that come after it.
-The causal mask sets the scores of all future positions to -infinity before softmax, so their weights become 0
-(upper triangle of the matrix is 0). Our masked Head 1 shows this: row 1 only sees token 1, row 2 sees tokens 1-2, and so on.
+**4 reasons Transformers replaced RNNs**
+1. **Parallelism:** an RNN must read token 1 before token 2; attention processes all tokens at once, so GPUs train it much faster on big data.
+2. **Long-range attention:** any token can look directly at any other token, even thousands of tokens away; an RNN must pass information step by step and forgets it.
+3. **Scaling:** Transformers keep improving as you add data, layers and GPUs, which made billion-parameter LLMs possible.
+4. **Transfer learning:** one pre-trained Transformer (BERT, GPT) can be fine-tuned or prompted for many tasks instead of training a new RNN each time.
+
+**Vanishing gradient problem**
+1. An RNN is trained by sending the error backwards through every time step (backpropagation through time).
+2. At each step the gradient is multiplied by small numbers (weights and activation slopes below 1).
+3. After many steps the gradient shrinks towards zero, so the early words get almost no learning signal.
+4. The network therefore "forgets" the beginning of long sentences; LSTM gates reduce this, and attention avoids it with direct connections.
+
+**How ChatGPT-style models generate text - for a non-technical manager (150 words)**
+ChatGPT-style models write one small piece of text at a time. First, your question is split into tokens - short
+word pieces. The model has learned, from reading a huge amount of text, which token is most likely to come next
+after any sequence of tokens. It looks at your whole question, scores every possible next token, picks a likely
+one, and adds it to the answer. Then it repeats the process: it reads your question plus everything it has written
+so far and predicts the next token again, hundreds of times, until the answer is complete. This is why answers
+appear word by word on the screen. The model does not look facts up in a database; it predicts what text should
+come next based on patterns. That makes it fluent and fast, but it can sound confident while being wrong, so
+important answers should still be checked by a person.
 
 ## Concepts
-- **Self-attention:** every token looks at every other token and builds a new vector as a weighted mix of them.
-- **Q/K/V:** Query = what I am looking for, Key = what I contain, Value = what I give if selected.
-- **Scaled dot-product:** Q·Kᵀ divided by √d keeps scores small so softmax does not become too sharp.
-- **Softmax:** turns scores into weights between 0 and 1 that sum to 1 per row.
-- **Multi-head attention:** several attention heads in parallel, concatenated and projected.
-- **Causal mask:** blocks future tokens in decoder (GPT-style) models.
+- **Encoder vs decoder:** encoders understand (read both ways), decoders generate (read left to right).
+- **Positional encoding:** adds position information so attention knows word order.
+- **RNN / LSTM vs Transformer:** step-by-step reading vs all tokens at once with attention.
+- **Parallelism:** Transformers train on all tokens at the same time on GPUs.
+- **Explaining AI to non-experts:** describe next-token prediction simply and be honest about limits.
