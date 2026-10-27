@@ -1,62 +1,85 @@
 ---
 
-# Week 4 - Day 3: Prompt engineering - system prompts, zero-shot and few-shot
+# Week 4 - Day 3 (Part 2): Chain-of-thought, sampling, structured output, fixing weak prompts
 
-Model: Gemini 3.8 Flash (thinking level Low). The Python API connection was blocked on my network
-(WinError 10053), so every prompt was run in Google AI Studio and the answers were saved in `results/`.
-`prompt_lab.py` builds the prompt versions, scores the saved answers against my labels and counts input
-tokens with tiktoken (`o200k_base`). All 10 tickets are sent in one call per prompt version.
+Script: `prompting_lab2.py` - all tables are generated automatically in `day3_part2_results.md`.
+Model: **Qwen2.5-0.5B-Instruct**, run locally on the CPU with Hugging Face transformers.
+Why a local model: the Python connection to the Gemini API was blocked on my network, and Gemini 3.8 Flash
+ignores temperature/top_p, so a local model was the only way to really change those settings.
 
-## Task 1 - System prompt and zero-shot
-- `prompts/v1.txt` - full system prompt with **Role, Task, Tone, Constraints, Output format**
-- `prompts/v2.txt` - same prompt **without the output format**
-- `prompts/v3.txt` - same prompt **without the constraints**
-- 10 test tickets with my own labels (several are deliberately ambiguous), stored in `prompt_lab.py`
+## Task 1 - Chain-of-thought and sampling
 
-| Version | Category | Priority | Both correct | What changed in the answer |
+### Chain-of-thought (5 word problems, greedy decoding)
+| Mode | Correct | Output tokens (all 5) |
+|---|---|---|
+| Direct answer ("only the final number") | **1/5** | 308 |
+| "Think step by step" | **3/5** | 1,356 |
+
+Step-by-step reasoning tripled the accuracy but used ~4x more tokens. Two CoT answers were cut off at the
+300-token limit before the final line - long reasoning also needs a bigger output budget.
+
+### Temperature (same slogan prompt, 5 runs each, top_p = 1.0)
+| Temperature | Different answers | What the answers looked like |
+|---|---|---|
+| 0 | 1/5 | Exactly the same slogan 5 times (deterministic) |
+| 0.7 | 5/5 | Varied and mostly good; 2 drifted into Chinese |
+| 1.2 | 5/5 | Random, often nonsense ("Brew deep leather planes over chocolate ships") |
+
+### Top-p (temperature 1.0, 5 runs each)
+| top_p | Different answers | What the answers looked like |
+|---|---|---|
+| 0.3 | 5/5 | Different but safe and similar ("Chennai's Filter-Cafe: Fresh Coffee, ...") - all on topic |
+| 0.95 | 5/5 | Wild and mixed-language - many unlikely words allowed |
+
+Temperature changes how random every choice is; top_p cuts off the unlikely tail of words.
+Low top_p keeps creativity "safe" even at a high temperature.
+
+### Recommended settings
+| Task | Temperature | top_p | Other |
+|---|---|---|---|
+| **Extraction** (JSON fields, labels) | **0** | 1.0 | JSON mode / structured output, no CoT, small max tokens |
+| **Summarisation** | **0.2 - 0.3** | 0.9 | Limit length ("3 bullet points"), no CoT |
+| **Brainstorming** | **0.8 - 1.0** | 0.9 - 0.95 | Ask for several ideas in one call; avoid > 1.2 (nonsense) |
+
+### When chain-of-thought is a waste of tokens
+- Simple lookups, extraction, classification and formatting - there is nothing to reason about.
+- With reasoning models that already "think" internally (Gemini 3.8 Flash got all arithmetic right on Day 1 without being asked).
+- When only the final answer is used and every token costs money or latency (CoT here was ~4x the tokens).
+- Use CoT for multi-step maths, logic and planning, especially with small models.
+
+## Task 2 - Structured output and common mistakes
+
+### Plain prompting vs JSON mode (5 resumes, schema `{name, skills[], years_experience}`)
+Every output was checked with `json.loads` and a Pydantic model (`name: str`, `skills: list[str]`, `years_experience: float`).
+
+| Method | Invalid outputs |
+|---|---|
+| Plain prompting ("...return JSON") | **5/5 invalid** - JSON wrapped in prose or ```json fences |
+| JSON mode | **0/5 invalid** - all passed json.loads and Pydantic |
+
+JSON mode locally = strict "You are a JSON API" system prompt + the answer is forced to start with `{"name": "`
++ the text is cut at the matching closing brace. Hosted APIs do this even more strictly with `response_format`
+/ Structured outputs, which constrain every generated token to the schema.
+
+### 4 bad prompts and their rewrites
+| Mistake | Bad prompt | Rewritten prompt | Bad result | Rewritten result |
 |---|---|---|---|---|
-| v1 full prompt | 8/10 | 9/10 | **7/10** | Clean `1 \| Billing \| High` lines, easy to parse |
-| v2 no output format | 8/10 | 9/10 | **7/10** | Same labels, but a long "Ticket 1: / Category: / Priority:" layout - harder to parse automatically |
-| v3 no constraints | 8/10 | 9/10 | **7/10** | Same as v1 |
+| Vague instruction | "Tell me about this ticket: ..." | "Classify into exactly one of [Billing, Technical, Account, Shipping, General]. Reply with the category only." | Long apology paragraph | "Technical" - short, but wrong (should be Shipping) |
+| No output format | "Find the order number and city in this ticket" | "Return only JSON like {"order_id": "...", "city": "..."}" | A sentence | Explained steps instead of JSON |
+| No examples | "Convert 'March 5th, 2026' to our standard date format" | Same + 2 examples (January 12th, 2025 -> 2025-01-12, ...) | Long explanation | **"2026-03-05" - correct** |
+| Conflicting instructions | "Summarise in one word. Give a detailed explanation with three reasons." | "Sentiment? Reply with one word: positive, negative or neutral." | Long summary | "Neutral" - one word, but wrong (should be negative) |
 
-Zero-shot mistakes (same in all three): T5 student discount -> Billing (should be General),
-T10 payment error E-102 -> Billing (should be Technical), T9 cracked screen -> High priority (should be Medium).
-For this strong model, removing the format or the constraints did not change the labels; removing the
-**output format** changed the **shape** of the answer, which would break a program that reads it.
-
-## Task 2 - Few-shot prompting
-Examples were chosen to cover the edge cases (payment word but a bug, discount question, address change for an order,
-login problem with no impact, received item that is a device fault). Prompts: `prompts/v4`-`v8`.
-
-| Examples | Category | Priority | Accuracy (both) | Input tokens per call |
-|---|---|---|---|---|
-| 0 (v1 zero-shot) | 8/10 | 9/10 | 7/10 | 485 |
-| **2 (v4)** | 10/10 | 9/10 | **9/10** | **531** |
-| 3 (v5) | 10/10 | 9/10 | 9/10 | 553 |
-| 5 (v6) | 10/10 | 9/10 | 9/10 | 597 |
-| 5, reversed order (v7) | 10/10 | 9/10 | 9/10 | 597 |
-| 3, one example labelled wrong (v8) | 9/10 | 9/10 | 9/10 | 553 |
-
-**Example order and a wrong example**
-- 2 examples fixed T5 (-> General) and T10 (-> Technical) - exactly the cases the examples covered.
-- The "delivery address -> Shipping | Medium" example fixed T9 but pushed T4 (order never arrived) down to Medium.
-- **Order matters:** v6 and v7 use the same 5 examples; v6 got T4 wrong, the reversed v7 got T9 wrong instead.
-- **A wrong example is copied:** in v8 the checkout error was labelled "Billing | Low", and T10 (payment error E-102)
-  was predicted Billing / Medium again - the model followed the bad example.
-
-**Best number of examples: 2.** It reached the best accuracy (9/10) for only +46 tokens (+9%) over zero-shot.
-3 and 5 examples cost up to +112 tokens (+23%) per call with no accuracy gain, so they only add cost.
-
-**When few-shot is better than zero-shot**
-1. When categories overlap and the model needs to see where the boundary is (e.g. "payment error" = Technical, not Billing).
-2. When you need an exact output format or labelling style that is hard to describe in words.
-3. When there are known edge cases - one good example fixes them better than a longer rule.
-4. Zero-shot is enough for clear tasks; few-shot costs tokens on every call, and bad or badly ordered examples can make results worse.
+**Bad prompts passed 0/4, rewritten prompts passed 1/4.** The rewrites fixed the *shape* of the answer
+(3 of 4 became one short answer instead of a paragraph), and the example-based rewrite was fully correct.
+The tiny 0.5B model still made wrong judgments - a better prompt fixes format and focus but cannot fully fix a
+weak model. Next steps: add category definitions to the classifier prompt, use JSON mode for the extraction
+prompt (as in Task 2a), or use a larger model.
 
 ## Concepts
-- **System prompt:** fixed instructions (role, task, tone, constraints, format) sent before the user message.
-- **Zero-shot:** the model gets only instructions, no examples.
-- **Few-shot:** a few labelled examples are added to the prompt to show the pattern.
-- **Prompt versioning:** each prompt version is a separate file in `prompts/`, committed to git, so results can be compared and repeated.
-- **Example selection:** examples should cover edge cases, be correctly labelled, and be checked for order effects.
-- **Token cost vs accuracy:** more examples = more input tokens on every call; stop adding them when accuracy stops improving.
+- **Chain-of-thought:** asking the model to reason step by step before answering; helps multi-step problems, costs tokens.
+- **Temperature:** how random the next-token choice is (0 = always the same, high = creative or chaotic).
+- **Top-p:** only sample from the smallest set of words whose probabilities add up to p.
+- **Task-specific settings:** extraction = deterministic, summarisation = low, brainstorming = high.
+- **Structured output / JSON mode:** force the answer into a fixed JSON schema so code can read it.
+- **Validation:** always check outputs with `json.loads` and a schema (Pydantic) before using them.
+- **Fixing weak prompts:** be specific, give an output format, add examples, remove conflicting instructions.
