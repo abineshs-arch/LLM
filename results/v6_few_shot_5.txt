@@ -1,0 +1,10 @@
+1 | Billing | High
+2 | Technical | Medium
+3 | Account | High
+4 | Shipping | Medium
+5 | General | Low
+6 | Account | High
+7 | Technical | Low
+8 | General | Low
+9 | Shipping | Medium
+10 | Technical | High

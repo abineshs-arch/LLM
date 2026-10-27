@@ -1,0 +1,39 @@
+Ticket 1:
+Category: Billing
+Priority: High
+
+Ticket 2:
+Category: Technical
+Priority: Medium
+
+Ticket 3:
+Category: Account
+Priority: High
+
+Ticket 4:
+Category: Shipping
+Priority: High
+
+Ticket 5:
+Category: Billing
+Priority: Low
+
+Ticket 6:
+Category: Account
+Priority: High
+
+Ticket 7:
+Category: Technical
+Priority: Low
+
+Ticket 8:
+Category: General
+Priority: Low
+
+Ticket 9:
+Category: Shipping
+Priority: High
+
+Ticket 10:
+Category: Billing
+Priority: High

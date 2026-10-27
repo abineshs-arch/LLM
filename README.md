@@ -1,72 +1,62 @@
 ---
 
-# Week 4 - Day 2 (Part 2): Encoder vs decoder, positional encoding, Transformers vs RNNs
+# Week 4 - Day 3: Prompt engineering - system prompts, zero-shot and few-shot
 
-## Task 1 - Encoder vs decoder and positional encoding (`task1_encoder_decoder.py`)
+Model: Gemini 3.8 Flash (thinking level Low). The Python API connection was blocked on my network
+(WinError 10053), so every prompt was run in Google AI Studio and the answers were saved in `results/`.
+`prompt_lab.py` builds the prompt versions, scores the saved answers against my labels and counts input
+tokens with tiktoken (`o200k_base`). All 10 tickets are sent in one call per prompt version.
 
-| | Encoder-only (BERT-style) | Decoder-only (GPT-style) |
-|---|---|---|
-| How it reads | Whole sentence at once, in **both directions** (every token sees every token) | **Left to right** only; a causal mask hides future tokens |
-| What it outputs | A context vector for every token -> a label, a filled-in word, an embedding | The **next token**, again and again -> new text |
-| Best tasks | Classification, NER, sentiment, search / embeddings, fill-mask | Chat, drafting emails and replies, summaries, code generation |
-| Example models | BERT, DistilBERT, RoBERTa | GPT-2, GPT-6, Claude, Llama, Gemini |
+## Task 1 - System prompt and zero-shot
+- `prompts/v1.txt` - full system prompt with **Role, Task, Tone, Constraints, Output format**
+- `prompts/v2.txt` - same prompt **without the output format**
+- `prompts/v3.txt` - same prompt **without the constraints**
+- 10 test tickets with my own labels (several are deliberately ambiguous), stored in `prompt_lab.py`
 
-**Positional encoding:** sinusoidal, 10 positions x 8 dimensions
-(`PE[pos, 2i] = sin(pos / 10000^(2i/8))`, `PE[pos, 2i+1] = cos(...)`) -> heatmap `positional_encoding.png`.
-Row 0 = [0, 1, 0, 1, ...]; every position gets a different pattern; the left dimensions change fast, the right ones slowly.
+| Version | Category | Priority | Both correct | What changed in the answer |
+|---|---|---|---|---|
+| v1 full prompt | 8/10 | 9/10 | **7/10** | Clean `1 \| Billing \| High` lines, easy to parse |
+| v2 no output format | 8/10 | 9/10 | **7/10** | Same labels, but a long "Ticket 1: / Category: / Priority:" layout - harder to parse automatically |
+| v3 no constraints | 8/10 | 9/10 | **7/10** | Same as v1 |
 
-**Why word order is lost without positional encoding**
-1. Self-attention compares every token with every other token using only their vectors.
-2. It has no built-in notion of "first", "second" or "next to".
-3. So "dog bites man" and "man bites dog" contain the same vectors and would get the same attention scores.
-4. Adding a unique position pattern to each token vector lets the model know where each word is.
+Zero-shot mistakes (same in all three): T5 student discount -> Billing (should be General),
+T10 payment error E-102 -> Billing (should be Technical), T9 cracked screen -> High priority (should be Medium).
+For this strong model, removing the format or the constraints did not change the labels; removing the
+**output format** changed the **shape** of the answer, which would break a program that reads it.
 
-**Example - encoder (BERT fill-mask):** "The customer was angry because the [MASK] arrived broken."
--> glass 0.174, window 0.039, ice 0.024, clock 0.015, bottle 0.014.
-BERT used the words on **both sides** ("arrived broken") and guessed things that break -> good at understanding.
+## Task 2 - Few-shot prompting
+Examples were chosen to cover the edge cases (payment word but a bug, discount question, address change for an order,
+login problem with no impact, received item that is a device fault). Prompts: `prompts/v4`-`v8`.
 
-**Example - decoder (GPT-2 generation):** "Dear customer, we are sorry that your order arrived broken. We will"
--> "...be contacting you to resolve the issue. Thank you for your patience."
-GPT-2 wrote a fluent continuation one token at a time -> good at writing.
+| Examples | Category | Priority | Accuracy (both) | Input tokens per call |
+|---|---|---|---|---|
+| 0 (v1 zero-shot) | 8/10 | 9/10 | 7/10 | 485 |
+| **2 (v4)** | 10/10 | 9/10 | **9/10** | **531** |
+| 3 (v5) | 10/10 | 9/10 | 9/10 | 553 |
+| 5 (v6) | 10/10 | 9/10 | 9/10 | 597 |
+| 5, reversed order (v7) | 10/10 | 9/10 | 9/10 | 597 |
+| 3, one example labelled wrong (v8) | 9/10 | 9/10 | 9/10 | 553 |
 
-## Task 2 - Transformers vs RNNs (`task2_lstm_vs_transformer.py`)
-Toy task: is a sequence of 8 digits sorted? 8,000 train / 2,000 test sequences (49% sorted; hard negatives
-are "almost sorted" with one neighbour swap). Same data, Adam lr 1e-3, batch 64, 15 epochs, CPU.
+**Example order and a wrong example**
+- 2 examples fixed T5 (-> General) and T10 (-> Technical) - exactly the cases the examples covered.
+- The "delivery address -> Shipping | Medium" example fixed T9 but pushed T4 (order never arrived) down to Medium.
+- **Order matters:** v6 and v7 use the same 5 examples; v6 got T4 wrong, the reversed v7 got T9 wrong instead.
+- **A wrong example is copied:** in v8 the checkout error was labelled "Billing | Low", and T10 (payment error E-102)
+  was predicted Billing / Medium again - the model followed the bad example.
 
-| Model | Parameters | Test accuracy | Training time |
-|---|---|---|---|
-| LSTM (1 layer, hidden 64) | 25,473 | **0.999** | **6.5 s** |
-| TransformerEncoder (2 layers, 4 heads, d_model 32) | 17,697 | 0.994 | 22.9 s |
+**Best number of examples: 2.** It reached the best accuracy (9/10) for only +46 tokens (+9%) over zero-shot.
+3 and 5 examples cost up to +112 tokens (+23%) per call with no accuracy gain, so they only add cost.
 
-**Result:** on this tiny task the LSTM was slightly more accurate and 3.5x faster. The sequences are short (8 digits)
-and sortedness only needs neighbour comparisons, which an RNN reads naturally; on a CPU with tiny models the
-attention overhead costs more than the parallelism saves. Transformers win on long texts, large models and GPUs.
-
-**4 reasons Transformers replaced RNNs**
-1. **Parallelism:** an RNN must read token 1 before token 2; attention processes all tokens at once, so GPUs train it much faster on big data.
-2. **Long-range attention:** any token can look directly at any other token, even thousands of tokens away; an RNN must pass information step by step and forgets it.
-3. **Scaling:** Transformers keep improving as you add data, layers and GPUs, which made billion-parameter LLMs possible.
-4. **Transfer learning:** one pre-trained Transformer (BERT, GPT) can be fine-tuned or prompted for many tasks instead of training a new RNN each time.
-
-**Vanishing gradient problem**
-1. An RNN is trained by sending the error backwards through every time step (backpropagation through time).
-2. At each step the gradient is multiplied by small numbers (weights and activation slopes below 1).
-3. After many steps the gradient shrinks towards zero, so the early words get almost no learning signal.
-4. The network therefore "forgets" the beginning of long sentences; LSTM gates reduce this, and attention avoids it with direct connections.
-
-**How ChatGPT-style models generate text - for a non-technical manager (150 words)**
-ChatGPT-style models write one small piece of text at a time. First, your question is split into tokens - short
-word pieces. The model has learned, from reading a huge amount of text, which token is most likely to come next
-after any sequence of tokens. It looks at your whole question, scores every possible next token, picks a likely
-one, and adds it to the answer. Then it repeats the process: it reads your question plus everything it has written
-so far and predicts the next token again, hundreds of times, until the answer is complete. This is why answers
-appear word by word on the screen. The model does not look facts up in a database; it predicts what text should
-come next based on patterns. That makes it fluent and fast, but it can sound confident while being wrong, so
-important answers should still be checked by a person.
+**When few-shot is better than zero-shot**
+1. When categories overlap and the model needs to see where the boundary is (e.g. "payment error" = Technical, not Billing).
+2. When you need an exact output format or labelling style that is hard to describe in words.
+3. When there are known edge cases - one good example fixes them better than a longer rule.
+4. Zero-shot is enough for clear tasks; few-shot costs tokens on every call, and bad or badly ordered examples can make results worse.
 
 ## Concepts
-- **Encoder vs decoder:** encoders understand (read both ways), decoders generate (read left to right).
-- **Positional encoding:** adds position information so attention knows word order.
-- **RNN / LSTM vs Transformer:** step-by-step reading vs all tokens at once with attention.
-- **Parallelism:** Transformers train on all tokens at the same time on GPUs.
-- **Explaining AI to non-experts:** describe next-token prediction simply and be honest about limits.
+- **System prompt:** fixed instructions (role, task, tone, constraints, format) sent before the user message.
+- **Zero-shot:** the model gets only instructions, no examples.
+- **Few-shot:** a few labelled examples are added to the prompt to show the pattern.
+- **Prompt versioning:** each prompt version is a separate file in `prompts/`, committed to git, so results can be compared and repeated.
+- **Example selection:** examples should cover edge cases, be correctly labelled, and be checked for order effects.
+- **Token cost vs accuracy:** more examples = more input tokens on every call; stop adding them when accuracy stops improving.
