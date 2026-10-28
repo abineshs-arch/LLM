@@ -1,0 +1,20 @@
+{
+  "candidate_name": "Meena Iyer",
+  "skills": [
+    "SQL",
+    "Excel",
+    "Power BI",
+    "Python",
+    "Tableau"
+  ],
+  "years_of_experience": 7.0,
+  "education": [
+    "MBA (Business Analytics), Christ University, 2018",
+    "B.Com, Madras University, 2016"
+  ],
+  "strengths": [
+    "Built Power BI dashboards for 40 stores.",
+    "Wrote SQL queries for credit risk reports."
+  ],
+  "gaps": []
+}

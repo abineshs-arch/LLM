@@ -1,0 +1,19 @@
+{
+  "candidate_name": "Arjun S",
+  "skills": [
+    "JavaScript",
+    "React",
+    "Node.js",
+    "HTML",
+    "CSS"
+  ],
+  "years_of_experience": null,
+  "education": [
+    "B.Sc. Computer Science, Madurai Kamaraj University, 2025"
+  ],
+  "strengths": [
+    "Built React components for an e-commerce site during 6-month internship.",
+    "Wrote a small Node.js API for product search during 6-month internship."
+  ],
+  "gaps": []
+}

@@ -1,0 +1,21 @@
+{
+  "candidate_name": "Karthik Raman",
+  "skills": [
+    "Kubernetes",
+    "Terraform",
+    "Jenkins",
+    "Docker",
+    "Selenium",
+    "JIRA",
+    "Linux"
+  ],
+  "years_of_experience": 5.0,
+  "education": [
+    "B.Tech Information Technology, VIT Vellore, 2021"
+  ],
+  "strengths": [
+    "Strong hands-on experience in managing Kubernetes clusters and implementing CI/CD pipelines.",
+    "Proficient in using tools like Jenkins, Docker, and Selenium for automating testing processes."
+  ],
+  "gaps": []
+}
