@@ -1,0 +1,13 @@
+{
+  "score": 85,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau",
+    "Python",
+    "data visualisation"
+  ],
+  "missing_skills": [],
+  "reasoning": "The candidate has strong skills in SQL, Excel, Power BI/Tableau, Python, and data visualization, which align perfectly with the required skills listed in the job description. The candidate also has relevant education and experience, including leading a team of 6 engineers and building NLP models for customer support ticket routing. This indicates they possess the necessary technical expertise and leadership capabilities expected for a Data Analyst role.",
+  "success": true
+}

@@ -1,0 +1,12 @@
+{
+  "score": 85,
+  "matched_skills": [
+    "Python",
+    "Django or FastAPI",
+    "SQL / PostgreSQL",
+    "REST APIs"
+  ],
+  "missing_skills": [],
+  "reasoning": "The candidate has strong Python skills, which is a key requirement. They also have experience in building REST APIs and working with databases like SQL/PostgreSQL. The PhD and M.Tech degrees further validate their extensive background in computer science. While they mention PyTorch and other advanced topics, these do not align with the specific requirements mentioned in the job description. Therefore, the overall fit is quite good, scoring high on both required and nice-to-have skills.",
+  "success": true
+}

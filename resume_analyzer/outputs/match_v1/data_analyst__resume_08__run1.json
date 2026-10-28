@@ -1,0 +1,14 @@
+{
+  "score": 43,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau",
+    "Python"
+  ],
+  "missing_skills": [
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has strong technical skills such as SQL, Excel, Power BI/Tableau, and Python, which align closely with the required skills for a Data Analyst role. However, they lack proficiency in data visualization tools like Power BI/Tableau or Python libraries specifically designed for data visualization. Additionally, their education is in mechanical engineering rather than computer science or data analytics, which could be seen as a gap in terms of specific data analysis knowledge.",
+  "success": true
+}

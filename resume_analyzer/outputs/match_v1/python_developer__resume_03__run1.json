@@ -1,0 +1,14 @@
+{
+  "score": 48,
+  "matched_skills": [
+    "Python",
+    "Django or FastAPI"
+  ],
+  "missing_skills": [
+    "SQL / PostgreSQL",
+    "REST APIs",
+    "Git"
+  ],
+  "reasoning": "The candidate has some relevant skills like JavaScript, React, Node.js, HTML, and CSS which align with the job requirements. However, they lack essential skills such as SQL / PostgreSQL, REST APIs, and Git, which are crucial for a Python Developer role in Backend Development. The candidate also lacks experience in backend development, indicated by their 'years_of_experience' being null.",
+  "success": true
+}

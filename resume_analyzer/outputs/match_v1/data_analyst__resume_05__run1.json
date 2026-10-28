@@ -1,0 +1,18 @@
+{
+  "score": 48,
+  "matched_skills": [
+    "Kubernetes",
+    "Terraform",
+    "Jenkins",
+    "Docker"
+  ],
+  "missing_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau",
+    "Python",
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has strong hands-on experience in managing Kubernetes clusters and implementing CI/CD pipelines, which aligns well with the required skill set. However, they lack proficiency in SQL, Excel, Power BI or Tableau, Python, and data visualization, which are essential for a Data Analyst role. The candidate's education is recent enough to suggest they may be able to acquire these skills through further training or self-study.",
+  "success": true
+}

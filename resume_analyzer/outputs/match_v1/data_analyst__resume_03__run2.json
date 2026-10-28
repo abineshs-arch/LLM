@@ -1,0 +1,14 @@
+{
+  "score": 38,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau"
+  ],
+  "missing_skills": [
+    "Python",
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has some relevant technical skills like JavaScript, React, Node.js, HTML, and CSS which align with the required skills for a Data Analyst position. However, they lack essential skills such as Python and data visualization tools like Power BI or Tableau, which are crucial for this role. The candidate also lacks experience in data analysis, indicated by their 'gaps' field being empty.",
+  "success": true
+}

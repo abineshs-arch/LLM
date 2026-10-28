@@ -81,3 +81,72 @@ python resume_analyzer/task1_report.py
 python resume_analyzer/task2_extract.py
 python -m uvicorn app:app --app-dir resume_analyzer     # then open http://127.0.0.1:8000/docs
 ```
+
+---
+
+# AI Resume Analyzer - Part 2: Validation, job matching and scoring
+
+## Task 1 - Validation and retry (`local_llm.py`, `extractor.py`, `task3_validation.py`)
+- `ResumeData` (Pydantic) with constraints: `years_of_experience` between 0 and 50, `skills` list not empty
+- Output parsed with `model_validate_json`; on error the **error message is sent back** to the model, up to **3 attempts**
+- After 3 failures a clear **failure object** is returned: `{"success": false, "error": ..., "attempts": 3, "message": ...}`
+- Every attempt is logged with input/output tokens and time (console + `logs/llm_calls.log`)
+
+| Test | Log | Result |
+|---|---|---|
+| Messy resume ("exp 2018 -> now, approx 7 yrs", "team = 60+ yrs combined") | Attempt 1: success, 376 in + 106 out tokens | years = 7.0 (did not take 60); but "bsc maths" became "BCS (Bachelor of Computer Science)" - hallucination |
+| Empty resume | Attempt 1: validation error (`skills: List should have at least 1 item`), 292 in + 34 out tokens. Attempt 2: success, 374 in + 59 out tokens | "Passed" only by **inventing** skills ("Python", "Data Analysis") and strengths |
+
+**Lesson:** retry-with-feedback makes the model satisfy the schema, even by making things up.
+Empty or scanned files must be rejected **before** the LLM (as `read_resume` does), and constraints like
+"skills not empty" must never be the only quality check.
+
+## Task 2 - Job description matching (`prompts/match_v1.txt`, `matcher.py`, `task4_match.py`)
+- 2 job descriptions: **Python Developer** and **Data Analyst** (required skills, nice-to-have, experience)
+- Matching prompt returns `score` (0-100), `matched_skills`, `missing_skills`, `reasoning` (validated with Pydantic)
+- The candidate **name is removed** before scoring; the prompt says to ignore name, gender, age, location and college
+- 8 resumes x 2 jobs x **2 runs** at temperature 0 = 32 calls - all valid JSON on the first attempt
+
+### Ranking - Python Developer
+| Rank | Candidate | Years | Run 1 | Run 2 | Consistent |
+|---|---|---|---|---|---|
+| 1 | Meena Iyer | 7 | 95 | 95 | yes |
+| 2 | Ravi Kumar | 4 | 85 | 85 | yes |
+| 3 | Dr. Fatima Khan | 9 | 85 | 85 | yes |
+| 4 | Arjun S | - | 48 | 48 | yes |
+| 5 | Karthik Raman | 5 | 48 | 48 | yes |
+| 6 | Priya Natarajan | 3 | 48 | 48 | yes |
+| 7 | Vikram Desai | - | 48 | 48 | yes |
+| 8 | Anitha George | 6 | 45 | 45 | yes |
+
+### Ranking - Data Analyst
+| Rank | Candidate | Years | Run 1 | Run 2 | Consistent |
+|---|---|---|---|---|---|
+| 1 | Meena Iyer | 7 | 90 | 90 | yes |
+| 2 | Dr. Fatima Khan | 9 | 85 | 85 | yes |
+| 3 | Ravi Kumar | 4 | 75 | 75 | yes |
+| 4 | Karthik Raman | 5 | 48 | 48 | yes |
+| 5 | Priya Natarajan | 3 | 48 | 48 | yes |
+| 6 | Anitha George | 6 | 43 | 43 | yes |
+| 7 | Arjun S | - | 38 | 38 | yes |
+| 8 | Vikram Desai | - | 38 | 38 | yes |
+
+Full table with matched/missing skills and reasoning: `match_results.md`.
+
+### Findings
+- **Consistency: 16/16 pairs gave the same score twice** - but temperature 0 only makes the model repeatable, not correct.
+- **Python Developer ranking is wrong at the top:** Meena (data analyst, no Django/FastAPI) ranked above Ravi (the real backend developer).
+- **Invented matches:** Priya (HR) and Vikram (Sales) were "matched" with Python, Django and SQL, which are not in their resumes.
+- The Data Analyst ranking is more sensible (Meena #1). Many candidates get the same "default" score (48), so the
+  small 1.5B model cannot separate weak fits. A larger model, a deterministic keyword check of `matched_skills`
+  against the extracted skills, and calibration examples would be the next steps.
+
+## Fairness note - risks of automated resume scoring
+1. The model can invent or miss skills (as seen above), so a strong candidate can be ranked low for no real reason.
+2. LLMs learn from biased data and may favour certain names, colleges, genders, career gaps or writing styles - we removed the name, but bias can hide in other fields.
+3. The score looks precise (95 vs 85) but is not calibrated; it should only be used to **sort for review, never to reject** a candidate automatically.
+4. A human recruiter must check every shortlist against the original resume, review rejected candidates too, see the reasoning and missing skills, and keep an audit log - candidates should be told AI is used and be able to ask for a human review.
+
+## API
+`POST /match/{job_id}` (job_id = `python_developer` or `data_analyst`) - upload a resume, it is extracted and scored;
+the response includes a note that a human must review it. `GET /health` lists the available jobs.

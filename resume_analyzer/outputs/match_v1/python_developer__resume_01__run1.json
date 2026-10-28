@@ -1,0 +1,14 @@
+{
+  "score": 85,
+  "matched_skills": [
+    "Python",
+    "Django",
+    "FastAPI",
+    "SQL / PostgreSQL",
+    "Docker",
+    "AWS"
+  ],
+  "missing_skills": [],
+  "reasoning": "The candidate has all the required skills for the position, including Python, Django, FastAPI, SQL/PostgreSQL, Docker, and AWS. They also have relevant experience in building REST APIs and moving services to cloud platforms like Docker and AWS, which aligns closely with the job requirements.",
+  "success": true
+}

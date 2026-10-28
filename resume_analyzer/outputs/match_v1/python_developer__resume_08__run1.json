@@ -1,0 +1,16 @@
+{
+  "score": 45,
+  "matched_skills": [
+    "Python",
+    "Django or FastAPI",
+    "SQL / PostgreSQL",
+    "REST APIs"
+  ],
+  "missing_skills": [
+    "FMEA",
+    "Minitab",
+    "ISO 9001"
+  ],
+  "reasoning": "The candidate has strong skills in Python, Django/FastAPI, SQL/PostgreSQL, and REST APIs, which align closely with the required skills for a Python Developer (Backend). However, they lack knowledge in FMEA, Minitab, and ISO 9001, which are important aspects of quality management and compliance. The candidate also has significant experience (6 years), but this is below the minimum required of 3+ years.",
+  "success": true
+}

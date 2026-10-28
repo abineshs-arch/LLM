@@ -1,0 +1,14 @@
+{
+  "score": 48,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau"
+  ],
+  "missing_skills": [
+    "Python",
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has some relevant skills such as MS Excel and SQL, which align with the required skills for a Data Analyst position. However, they lack necessary programming languages like Python and specific data visualization tools like Power BI or Tableau. Additionally, their experience is more than two years but less than three years, which doesn't fully meet the minimum requirement of having 2+ years in data analysis. The strengths mentioned do not directly relate to data analysis tasks.",
+  "success": true
+}

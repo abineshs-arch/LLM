@@ -1,0 +1,14 @@
+{
+  "score": 48,
+  "matched_skills": [
+    "Python",
+    "Django or FastAPI",
+    "SQL / PostgreSQL"
+  ],
+  "missing_skills": [
+    "REST APIs",
+    "Git"
+  ],
+  "reasoning": "The candidate has strong Python and backend development skills, which aligns well with the job requirements. However, they lack experience in REST APIs and Git, which are important for this role. The candidate also lacks experience in Docker, AWS, and CI/CD, which are considered nice-to-haves but not essential for this position.",
+  "success": true
+}

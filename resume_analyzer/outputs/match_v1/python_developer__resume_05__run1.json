@@ -1,0 +1,13 @@
+{
+  "score": 48,
+  "matched_skills": [
+    "Python",
+    "Docker"
+  ],
+  "missing_skills": [
+    "REST APIs",
+    "Git"
+  ],
+  "reasoning": "The candidate has strong skills in Python and Docker, which aligns well with the required skills for this role. However, they lack proficiency in REST APIs and Git, which are essential for backend development. The candidate also lacks experience in these areas, as indicated by their education and gaps in experience.",
+  "success": true
+}

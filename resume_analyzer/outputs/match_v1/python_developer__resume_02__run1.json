@@ -1,0 +1,12 @@
+{
+  "score": 95,
+  "matched_skills": [
+    "Python",
+    "Django or FastAPI",
+    "SQL / PostgreSQL",
+    "REST APIs"
+  ],
+  "missing_skills": [],
+  "reasoning": "The candidate has strong Python skills, which is a key requirement. They also have experience in SQL and PostgreSQL, both important for backend development. The candidate's strengths in building Power BI dashboards and writing SQL queries further support their fit for this role. While they do not have experience in Docker, AWS, or CI/CD, these are not explicitly mentioned as requirements in the job description.",
+  "success": true
+}

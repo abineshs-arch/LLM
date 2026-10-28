@@ -1,0 +1,14 @@
+{
+  "score": 38,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau"
+  ],
+  "missing_skills": [
+    "Python",
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has some relevant skills like SQL, Excel, and Power BI/Tableau which align with the required skills for a Data Analyst role. However, they lack essential skills such as Python and data visualization, which are crucial for this position. The candidate also lacks experience in data analysis, indicated by their 'gaps' field.",
+  "success": true
+}

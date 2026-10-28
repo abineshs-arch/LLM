@@ -1,0 +1,14 @@
+{
+  "score": 75,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI or Tableau",
+    "Python"
+  ],
+  "missing_skills": [
+    "data visualisation"
+  ],
+  "reasoning": "The candidate has strong technical skills such as Python, which is essential for a Data Analyst role. They also have experience building REST APIs and moving services to Docker and AWS, indicating proficiency in backend technologies. However, they lack experience in data visualization, which is a key skill for this position.",
+  "success": true
+}

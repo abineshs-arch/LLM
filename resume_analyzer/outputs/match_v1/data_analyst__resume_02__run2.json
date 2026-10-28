@@ -1,0 +1,13 @@
+{
+  "score": 90,
+  "matched_skills": [
+    "SQL",
+    "Excel",
+    "Power BI",
+    "Python",
+    "Tableau"
+  ],
+  "missing_skills": [],
+  "reasoning": "The candidate has all the required skills mentioned in the job description, including SQL, Excel, Power BI, Python, and Tableau. They also have relevant experience as indicated by their MBA degree and work history. The candidate's strengths in building Power BI dashboards and writing SQL queries further support their fit for this role.",
+  "success": true
+}
