@@ -1,0 +1,5 @@
+[run]
+omit =
+    */task*.py
+    */make_resumes.py
+    */test_*.py

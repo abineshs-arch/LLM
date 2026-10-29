@@ -1,0 +1,22 @@
+{
+  "candidate_name": "Dr. Fatima Khan",
+  "skills": [
+    "Python",
+    "PyTorch",
+    "NLP",
+    "Computer Vision",
+    "Kubeflow",
+    "MLOps",
+    "Team Leadership"
+  ],
+  "years_of_experience": 9.0,
+  "education": [
+    "PhD Computer Science, IIT Madras, 2017",
+    "M.Tech Computer Science, IIT Madras, 2013"
+  ],
+  "strengths": [
+    "Led a team of 6 engineers",
+    "Built NLP models for customer support ticket routing"
+  ],
+  "gaps": []
+}

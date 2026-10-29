@@ -1,3 +1,4 @@
 .env
 __pycache__/
 long_text.txt
+.coverage

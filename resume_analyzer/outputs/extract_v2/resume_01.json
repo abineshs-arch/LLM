@@ -1,0 +1,21 @@
+{
+  "candidate_name": "Ravi Kumar",
+  "skills": [
+    "Django",
+    "FastAPI",
+    "PostgreSQL",
+    "Docker",
+    "AWS",
+    "Git"
+  ],
+  "years_of_experience": 4.0,
+  "education": [
+    "B.E. Computer Science, Anna University, 2021"
+  ],
+  "strengths": [
+    "Built REST APIs with Python frameworks",
+    "Cut hosting costs by moving services to Docker and AWS",
+    "Wrote SQL reports using PostgreSQL"
+  ],
+  "gaps": []
+}

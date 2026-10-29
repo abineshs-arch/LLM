@@ -45,3 +45,27 @@
 12:49:07 | [req=2ff3544e extract] Attempt 1: success | 445 in + 118 out tokens | 200 s
 12:52:58 | [req=2ff3544e match] Attempt 1: success | 439 in + 104 out tokens | 230 s
 12:52:58 | req=2ff3544e POST /analyze -> 200 in 485.1 s
+16:19:02 | [extract] Attempt 1: success | 569 in + 120 out tokens | 211 s
+16:21:52 | [extract] Attempt 1: success | 554 in + 106 out tokens | 169 s
+16:24:21 | [extract] Attempt 1: success | 538 in + 78 out tokens | 149 s
+16:28:50 | [extract] Attempt 1: success | 592 in + 143 out tokens | 267 s
+16:32:20 | [extract] Attempt 1: success | 552 in + 129 out tokens | 209 s
+16:34:53 | [extract] Attempt 1: success | 514 in + 108 out tokens | 153 s
+16:37:31 | [extract] Attempt 1: success | 478 in + 81 out tokens | 157 s
+16:40:31 | [extract] Attempt 1: success | 549 in + 110 out tokens | 179 s
+16:49:47 | req=5c065672 GET /health -> 200 in 0.0 s
+16:49:47 | [req=472675fb extract] Attempt 1: success | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=472675fb match] Attempt 1: success | 300 in + 60 out tokens | 0 s
+16:49:47 | req=472675fb POST /analyze -> 200 in 0.0 s
+16:49:47 | [req=93a3a54a extract] Attempt 1: validation error (json: Invalid JSON: EOF while parsing a list at line 2 column 53) | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=93a3a54a extract] Attempt 2: success | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=93a3a54a match] Attempt 1: success | 300 in + 60 out tokens | 0 s
+16:49:47 | req=93a3a54a POST /analyze -> 200 in 0.0 s
+16:49:47 | [req=a37ed8b8 extract] Attempt 1: validation error (json: Invalid JSON: expected value at line 2 column 20) | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=a37ed8b8 extract] Attempt 2: validation error (json: Invalid JSON: expected value at line 2 column 20) | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=a37ed8b8 extract] Attempt 3: validation error (json: Invalid JSON: expected value at line 2 column 20) | 250 in + 80 out tokens | 0 s
+16:49:47 | [req=a37ed8b8 extract] FAILED after 3 attempts
+16:49:47 | req=a37ed8b8 POST /analyze -> 502 in 0.0 s
+16:49:48 | req=ef1698c6 POST /analyze -> 422 in 0.0 s
+16:49:48 | req=959afaec POST /analyze -> 415 in 0.0 s
+16:49:48 | req=1fc8ec13 POST /analyze -> 413 in 0.0 s
