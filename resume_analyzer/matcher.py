@@ -1,4 +1,4 @@
-"""Part 2 - Task 2: compare extracted resume data with a job description and score it."""
+"""Compare extracted resume data with a job description and score it."""
 import json
 from pathlib import Path
 
@@ -30,8 +30,13 @@ class MatchResult(BaseModel):
     reasoning: str = Field(min_length=10)
 
 
-def match(resume: dict, job_id: str, label="match"):
-    """resume = extracted ResumeData as a dict. The name is removed before scoring (fairness)."""
+def match_jd(resume: dict, job_description: str, label="match"):
+    """Score a resume against any job description text. The name is removed first (fairness)."""
     profile = {k: v for k, v in resume.items() if k != "candidate_name"}
-    user = f"JOB DESCRIPTION:\n{JOBS[job_id]}\n\nCANDIDATE PROFILE (JSON):\n{json.dumps(profile, indent=2)}"
+    user = f"JOB DESCRIPTION:\n{job_description}\n\nCANDIDATE PROFILE (JSON):\n{json.dumps(profile, indent=2)}"
     return call_json(SYSTEM_PROMPT, user, MatchResult, PREFILL, label, max_new_tokens=300)
+
+
+def match(resume: dict, job_id: str, label="match"):
+    """Used by task4_match.py: score against one of the 2 saved jobs."""
+    return match_jd(resume, JOBS[job_id], label)

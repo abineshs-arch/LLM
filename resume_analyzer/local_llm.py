@@ -84,16 +84,19 @@ def short_error(e):
 
 def call_json(system, user, schema, prefill, label, max_attempts=3, max_new_tokens=450):
     """Ask for JSON, validate with schema.model_validate_json, retry with the error message.
-    Returns {"success": True, "data": obj, "attempts": n} or a failure object."""
+    Returns {"success": True, "data": obj, "attempts": n, "usage": {...}} or a failure object."""
     messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
     error = None
+    usage = {"input_tokens": 0, "output_tokens": 0}
     for attempt in range(1, max_attempts + 1):
         raw, in_tok, out_tok, secs = chat(messages, prefill, max_new_tokens)
+        usage["input_tokens"] += in_tok
+        usage["output_tokens"] += out_tok
         candidate = first_json_object(raw) or raw
         try:
             data = schema.model_validate_json(candidate)
             log.info(f"[{label}] Attempt {attempt}: success | {in_tok} in + {out_tok} out tokens | {secs:.0f} s")
-            return {"success": True, "data": data, "attempts": attempt}
+            return {"success": True, "data": data, "attempts": attempt, "usage": usage}
         except ValidationError as e:
             error = short_error(e)
             log.info(f"[{label}] Attempt {attempt}: validation error ({error}) | "
@@ -102,5 +105,5 @@ def call_json(system, user, schema, prefill, label, max_attempts=3, max_new_toke
                          {"role": "user", "content": f"Your JSON is not valid: {error}. "
                                                      "Fix this and return only the corrected JSON object."}]
     log.info(f"[{label}] FAILED after {max_attempts} attempts")
-    return {"success": False, "error": error, "attempts": max_attempts,
+    return {"success": False, "error": error, "attempts": max_attempts, "usage": usage,
             "message": f"Could not get valid JSON after {max_attempts} attempts. Last error: {error}"}

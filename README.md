@@ -150,3 +150,62 @@ Full table with matched/missing skills and reasoning: `match_results.md`.
 ## API
 `POST /match/{job_id}` (job_id = `python_developer` or `data_analyst`) - upload a resume, it is extracted and scored;
 the response includes a note that a human must review it. `GET /health` lists the available jobs.
+
+---
+
+# AI Resume Analyzer - Part 3: FastAPI endpoint, error handling and timeouts
+
+Files: `config.py` (settings from `.env`), `app.py` (API), `task5_failure_tests.py` (failure tests).
+
+## Task 1 - Analyzer API
+- **`POST /analyze`** (multipart form): `job_description` (text, min 20 chars) + a resume **file** (.pdf / .txt) **or** `resume_text`
+  -> extracts the resume, scores it against the job description, returns the structured result and the score
+- **Validation with clear 4xx errors:** unsupported file type -> 415, file over 5 MB -> 413, empty file / scanned PDF / too-short text -> 422
+- **Secrets:** the API key is loaded from `.env` (in `.gitignore`) by `config.py`; it is never returned, printed or logged -
+  `/health` only shows `"api_key_loaded": true`
+- **`GET /health`** shows status, whether the model is busy and the limits; **`/docs`** has a ready example
+  (the job description field is pre-filled with the Python Developer job)
+- **Token usage and estimated cost** are returned in every successful response
+
+Real request (`resume_01.pdf` + Python Developer job, local Qwen2.5-1.5B on CPU, about 10 minutes):
+```json
+{
+  "request_id": "2ff3544e",
+  "candidate_name": "Ravi Kumar",
+  "score": 85,
+  "matched_skills": ["Python", "Django", "FastAPI", "SQL / PostgreSQL", "Docker", "AWS"],
+  "missing_skills": [],
+  "reasoning": "The candidate has all the required skills for the position, including Python, Django, FastAPI, SQL/PostgreSQL, Docker, and AWS. They also have relevant experience in building REST APIs and moving services to cloud platforms like Docker and AWS, which aligns closely with the job requirements.",
+  "usage": {"input_tokens": 884, "output_tokens": 222, "estimated_cost_usd": 0.001495,
+            "cost_note": "local model is free; cost shown as if run on Gemini 3.8 Flash"},
+  "note": "Automated score - must be reviewed by a human before any decision."
+}
+```
+Note: `missing_skills` should contain "Git" - the extractor missed Git in the resume, so the matcher never saw it.
+
+## Task 2 - Error handling and timeouts
+- **Timeout:** every LLM step runs in a thread with `asyncio.wait_for` (`LLM_TIMEOUT_SECONDS`, default 600 s on CPU)
+- **Retry:** a timeout or a busy model is retried once; invalid JSON is retried 3 times with the error message (Part 2)
+- **Friendly messages:** invalid JSON / model crash -> **502**; timeout / model busy (rate limit) -> **503** with `Retry-After: 60`
+- **Token limit:** resumes over `MAX_RESUME_TOKENS` (1500) are rejected with **413** before calling the LLM
+- **Request id:** every request gets an id, returned in the `X-Request-ID` header and in error bodies, and logged:
+  `12:19:27 | req=f6ae12b0 POST /analyze -> 200 in 0.1 s`
+
+### Failure tests (`task5_failure_tests.py`, FastAPI TestClient, LLM replaced by fast fakes)
+| Failure case | Status code | Message |
+|---|---|---|
+| 0. Normal request (fake LLM) | 200 | score 78 |
+| 1. Wrong file type (.docx) | 415 | unsupported file type '.docx', use .pdf or .txt |
+| 2. File too large (6 MB) | 413 | file too large (max 5 MB) |
+| 3. Resume over the token limit | 413 | resume too long: 3200 tokens (limit 1500) |
+| 4. Scanned PDF (no text) | 422 | no text found (scanned file - needs OCR) |
+| 5. LLM returns invalid JSON 3 times | 502 | The AI model did not return valid JSON after 3 attempts (json: Invalid JSON: EOF while parsing). |
+| 6. LLM timeout (1 s limit, retried once) | 503 | The AI model did not answer within 1 seconds. Please try again later. |
+
+API key loaded from `.env`: True (the key itself is never printed).
+
+## Run
+```powershell
+python resume_analyzer/task5_failure_tests.py                 # failure table in seconds
+python -m uvicorn app:app --app-dir resume_analyzer           # then open http://127.0.0.1:8000/docs
+```
