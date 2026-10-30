@@ -1,0 +1,77 @@
+[
+  {
+    "text": "I was charged twice for my Pro subscription this month, please refund the extra payment.",
+    "category": "Billing",
+    "priority": "High"
+  },
+  {
+    "text": "Can I get a copy of last month's invoice with our GST number on it?",
+    "category": "Billing",
+    "priority": "Low"
+  },
+  {
+    "text": "The discount coupon SAVE20 was not applied to my renewal bill.",
+    "category": "Billing",
+    "priority": "Medium"
+  },
+  {
+    "text": "My card was charged but the order shows payment failed. Money is gone from my bank!",
+    "category": "Billing",
+    "priority": "High"
+  },
+  {
+    "text": "Please change the billing address on future invoices to our new office.",
+    "category": "Billing",
+    "priority": "Low"
+  },
+  {
+    "text": "The app crashes every time I open the reports page since yesterday's update.",
+    "category": "Technical",
+    "priority": "Medium"
+  },
+  {
+    "text": "Our whole team cannot load the dashboard - blank screen for everyone, work has stopped.",
+    "category": "Technical",
+    "priority": "High"
+  },
+  {
+    "text": "The export to PDF button does nothing on Firefox, Chrome works fine.",
+    "category": "Technical",
+    "priority": "Low"
+  },
+  {
+    "text": "Checkout shows error E-102 every time I try to pay, I cannot complete my purchase.",
+    "category": "Technical",
+    "priority": "High"
+  },
+  {
+    "text": "The website is a bit slow in the evenings, not a big problem, just letting you know.",
+    "category": "Technical",
+    "priority": "Low"
+  },
+  {
+    "text": "I can't log in - the password reset email never arrives and I must send invoices to clients today.",
+    "category": "Account",
+    "priority": "High"
+  },
+  {
+    "text": "Someone changed my login email without my permission and I see orders I did not place.",
+    "category": "Account",
+    "priority": "High"
+  },
+  {
+    "text": "How do I add a second team member to my account?",
+    "category": "Account",
+    "priority": "Low"
+  },
+  {
+    "text": "My account was locked after too many attempts, please unlock it this week.",
+    "category": "Account",
+    "priority": "Medium"
+  },
+  {
+    "text": "I want to update the phone number on my profile.",
+    "category": "Account",
+    "priority": "Low"
+  }
+]

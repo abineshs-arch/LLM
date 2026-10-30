@@ -1,0 +1,69 @@
+[
+  {
+    "text": "Ravi Kumar is a Python developer from Chennai with 4 years of experience. He works with Django, PostgreSQL and Docker, and recently started using AWS.",
+    "expected": {
+      "name": "Ravi Kumar",
+      "skills": [
+        "Python",
+        "Django",
+        "PostgreSQL",
+        "Docker",
+        "AWS"
+      ],
+      "years_experience": 4
+    }
+  },
+  {
+    "text": "Meena Iyer has spent the last seven years as a data analyst. Her toolkit: SQL, Excel, Power BI and some Python.",
+    "expected": {
+      "name": "Meena Iyer",
+      "skills": [
+        "SQL",
+        "Excel",
+        "Power BI",
+        "Python"
+      ],
+      "years_experience": 7
+    }
+  },
+  {
+    "text": "Arjun S - fresher, graduated 2025. Internship (6 months) in React and Node.js. Knows Git. Total experience: 0.5 years.",
+    "expected": {
+      "name": "Arjun S",
+      "skills": [
+        "React",
+        "Node.js",
+        "Git"
+      ],
+      "years_experience": 0.5
+    }
+  },
+  {
+    "text": "Dr. Fatima Khan, ML engineer, 9 yrs. Skills include PyTorch, NLP, computer vision and MLOps (Kubeflow).",
+    "expected": {
+      "name": "Fatima Khan",
+      "skills": [
+        "PyTorch",
+        "NLP",
+        "Computer Vision",
+        "MLOps",
+        "Kubeflow"
+      ],
+      "years_experience": 9
+    }
+  },
+  {
+    "text": "Karthik worked 2 years in QA (Selenium, JIRA) and then 3 years in DevOps with Jenkins, Kubernetes and Terraform.",
+    "expected": {
+      "name": "Karthik",
+      "skills": [
+        "Selenium",
+        "JIRA",
+        "Jenkins",
+        "Kubernetes",
+        "Terraform"
+      ],
+      "years_experience": 5
+    }
+  }
+]

@@ -1,0 +1,644 @@
+{
+ "t2_1": {
+  "text": "Priya Sharma from Coimbatore's bakery has been charged with a yearly Pro plan but continues to receive a Free plan invoice and experiences report crashes. She requests urgent resolution or a refund.\n\nPriya Sharma, owner of a bakery in Coimbatore, has received an incorrect invoice stating she was billed for a Pro plan when she actually paid for a Free one, causing issues with her reports. She seeks immediate action or a refund.",
+  "in_tokens": 134,
+  "out_tokens": 90,
+  "seconds": 87.1
+ },
+ "t2_2": {
+  "text": "Category: Technical, Priority: High",
+  "in_tokens": 160,
+  "out_tokens": 8,
+  "seconds": 21.7
+ },
+ "t2_3": {
+  "text": "```json\n{\n  \"name\": \"Priya Sharma\",\n  \"city\": \"Coimbatore\",\n  \"amount_inr\": 2499,\n  \"payment_date\": \"14 October\",\n  \"plan\": \"Pro\",\n  \"issue\": \"Free plan with reports crashing\",\n  \"contact_info\": {\n    \"phone\": \"+91 98400 12345\"\n  }\n}\n```",
+  "in_tokens": 145,
+  "out_tokens": 94,
+  "seconds": 86.8
+ },
+ "t2_4": {
+  "text": "ஓட்டு பெற்றது. நான் அமைச்சரியல் மேற்கொள்ளப்பட்டுள்ளோம்.",
+  "in_tokens": 53,
+  "out_tokens": 62,
+  "seconds": 72.4
+ },
+ "t2_5": {
+  "text": "```python\ndef is_valid_indian_mobile(number: str) -> bool:\n    \"\"\"\n    Checks if the given string represents a valid Indian mobile phone number.\n    \n    Args:\n    number (str): The mobile phone number as a string.\n    \n    Returns:\n    bool: True if the number is valid, False otherwise.\n    \"\"\"\n    # Check if the length of the number is exactly 10 digits\n    if len(number) != 10:\n        return False\n    \n    # Remove any leading '+' and '0' from the number\n    number = number[2:]\n    \n    # Check if the first digit is one of the allowed ones (6, 7, 8, 9)\n    if not number.startswith(('6', '7', '8', '9')):\n        return False\n    \n    # Check if the rest of the number consists only of digits\n    if not number.isdigit():\n        return False\n    \n    return True\n\n# Example usage\nprint(is",
+  "in_tokens": 77,
+  "out_tokens": 200,
+  "seconds": 177.6
+ },
+ "t2_6": {
+  "text": "As an AI developed by Alibaba Cloud, I don't have real-time access to current events or specific dates. However, you can easily find today's date on any calendar application or website. For the latest in tech news, you might want to check reputable sources like TechCrunch, Wired, The Verge, or other major tech news outlets for the top three stories of the week.",
+  "in_tokens": 48,
+  "out_tokens": 79,
+  "seconds": 62.4
+ },
+ "t2_7": {
+  "text": "I apologize, but I do not have access to the specific details of the \"Quantum Gradient Folding for Tamil Sentiment Analysis\" paper published in NeurIPS 2019 authored by R. Venkataraman and L. Ortiz. As an AI language model, I don't have direct access to academic papers or their content without proper authorization from the authors or publishers.\n\nHowever, I can provide some general information about quantum computing and machine learning that might be relevant:\n\n- Quantum gradient folding is a technique used in quantum machine learning algorithms.\n- The goal is often to optimize the performance of classical machine learning models using quantum computers.\n- This approach aims to leverage the parallel processing capabilities of quantum computers to speed up certain computations involved in training neural networks.\n\nIf you're interested in understanding more about this topic, I'd recommend looking into recent research papers on quantum machine learning and sentiment analysis specifically. There may be other researchers who have explored similar methods and achieved comparable results with different approaches.",
+  "in_tokens": 75,
+  "out_tokens": 199,
+  "seconds": 180.6
+ },
+ "t2_8": {
+  "text": "I don't know.",
+  "in_tokens": 91,
+  "out_tokens": 6,
+  "seconds": 11.2
+ },
+ "t2_9": {
+  "text": "The emergency access code for the Coimbatore warehouse is 7341.",
+  "in_tokens": 7506,
+  "out_tokens": 19,
+  "seconds": 302.1
+ },
+ "t2_10": {
+  "text": "To calculate how much Ravi pays for the pens after applying the discount and adding the GST, we can follow these steps:\n\n### Step 1: Calculate the Total Cost Before Discount\nThe cost of one pen is Rs 17.\nRavi buys 23 pens.\n\nTotal cost before discount = Number of pens × Price per pen\n= 23 × 17\n\nLet's compute this:\n\\[ \\text{Total cost before discount} = 23 \\times 17 = 391 \\]\n\n### Step 2: Apply the Discount\nRavi gets a 15% discount on the total cost.\n\nDiscount amount = Total cost before discount × Discount rate\n= 391 × 0.15\n\nLet's compute this:\n\\[ \\text{Discount amount} = 391 \\times 0.15 = 58.65 \\]\n\nSubtract the discount from the original total cost to get the discounted price:\n\\[ \\text{Discounted price} = \\text{Total cost before discount} - \\text{Discount amount} \\]\n\\[ \\text{Discounted price} = 391 - 58.65 = 332.35 \\]\n\n### Step 3: Add the GST\nGST (Goods and Services Tax) is applied at 18%.\n\nGST amount = Discounted price × GST rate\n= 332.35 ×",
+  "in_tokens": 93,
+  "out_tokens": 300,
+  "seconds": 258.8
+ },
+ "t2_11": {
+  "text": "To determine who sits in the middle seat, let's analyze the seating arrangement step by step:\n\n1. **Eisha sits at the left end:**\n   - This means Eisha is in the first seat.\n\n2. **Chitra sits at the right end:**\n   - This means Chitra is in the fifth seat.\n\n3. **Anu sits somewhere to the left of Babu:**\n   - This implies that Anu cannot be in the second or third seat (since Babu must be to her left).\n\n4. **Dev sits between Anu and Babu:**\n   - This means Dev must be in one of the two seats immediately next to Anu and Babu.\n\nGiven these constraints, we can deduce the following:\n- Since Eisha is fixed in the first seat and Chitra is fixed in the fifth seat, there are only four remaining seats for the other three people.\n- Anu and Babu need to be placed such that Dev is between",
+  "in_tokens": 83,
+  "out_tokens": 200,
+  "seconds": 133.5
+ },
+ "t4a_v1_1": {
+  "text": "Classification: Technical Support\n\nPriority: High\n\nExplanation:\n- **Classification:** The issue involves billing or subscription management, which falls under technical support as it pertains to the user's account and service usage.\n- **Priority:** Given that there has been an unexpected charge (extra payment) without prior notice",
+  "in_tokens": 56,
+  "out_tokens": 60,
+  "seconds": 67.4
+ },
+ "t4a_v1_2": {
+  "text": "Classification: Support Ticket\n\nPriority: High\n\nExplanation:\n- Classification: The ticket is about obtaining an invoice for the previous month.\n- Priority: This request typically requires immediate attention as it involves financial information that needs to be verified or provided promptly.\n\nPlease note that without access to your specific account details or",
+  "in_tokens": 56,
+  "out_tokens": 60,
+  "seconds": 46.7
+ },
+ "t4a_v1_3": {
+  "text": "Classification: Support Ticket\n\nPriority: Medium\n\nExplanation:\n- **Classification:** The ticket is classified as \"Support Ticket\" because it involves an issue related to billing or payment processes.\n- **Priority:** The priority is set as \"Medium\" because the problem (the discount coupon not being applied) seems",
+  "in_tokens": 53,
+  "out_tokens": 60,
+  "seconds": 78.7
+ },
+ "t4a_v1_4": {
+  "text": "This support ticket should be classified as an urgent issue due to the loss of funds from the customer's bank account.\n\nPriority: High\n\nExplanation:\n- The customer has experienced a significant financial loss (money being taken out of their bank account).\n- There is no clear indication that the problem can be resolved",
+  "in_tokens": 57,
+  "out_tokens": 60,
+  "seconds": 40.5
+ },
+ "t4a_v1_5": {
+  "text": "This support ticket should be classified as \"Billing Address Update\" with a high priority level. The urgency of updating the billing address for future invoices is considered critical, requiring immediate attention from the relevant department or team to ensure accurate invoicing and avoid any potential discrepancies or issues related to payment processing.",
+  "in_tokens": 52,
+  "out_tokens": 59,
+  "seconds": 79.3
+ },
+ "t4a_v1_6": {
+  "text": "**Classification:** Technical Support\n\n**Priority:** High\n\nThis issue falls under the category of technical support as it involves an application crashing when opening a specific page (the reports page). The high priority is set because the crash occurs immediately after the update was made, indicating that there might be a bug or",
+  "in_tokens": 54,
+  "out_tokens": 60,
+  "seconds": 48.7
+ },
+ "t4a_v1_7": {
+  "text": "Classification: Technical Support\n\nPriority: High\n\nExplanation:\nThe issue described in the support ticket is related to an application or system not loading properly, resulting in a blank screen for all team members. This type of problem typically requires immediate attention as it can cause significant downtime and affect productivity. The high priority",
+  "in_tokens": 56,
+  "out_tokens": 60,
+  "seconds": 85.2
+ },
+ "t4a_v1_8": {
+  "text": "**Classification:** Bug Report\n\n**Priority:** Medium\n\nThis classification indicates that the issue is related to functionality in one of the supported browsers (Firefox or Chrome), which has been reported as not working properly with the \"Export to PDF\" feature. The medium priority suggests that while it's an issue,",
+  "in_tokens": 53,
+  "out_tokens": 60,
+  "seconds": 46.3
+ },
+ "t4a_v1_9": {
+  "text": "Classification: Technical Support\n\nPriority: High\n\nExplanation:\nThe error message \"E-102\" typically indicates an issue with the payment gateway or the checkout process on the website. This type of error is usually related to technical problems that require immediate attention from the technical team to resolve. Therefore,",
+  "in_tokens": 60,
+  "out_tokens": 60,
+  "seconds": 96.0
+ },
+ "t4a_v1_10": {
+  "text": "Based on the information provided, it seems that the issue with the website being slow during the evening hours is minor and does not require immediate attention or high priority. Therefore, I would classify this as a low-priority support ticket.",
+  "in_tokens": 59,
+  "out_tokens": 47,
+  "seconds": 80.1
+ },
+ "t4a_v1_11": {
+  "text": "This support ticket should be classified as \"URGENT\" with a high priority level. The urgency is due to the fact that the user cannot log in because of an issue with their password reset email not arriving, which could potentially prevent them from accessing important systems or services they need for work purposes.",
+  "in_tokens": 60,
+  "out_tokens": 60,
+  "seconds": 43.0
+ },
+ "t4a_v1_12": {
+  "text": "This is a security issue that requires immediate attention. The priority should be high as it involves unauthorized access to personal information and potential financial loss.",
+  "in_tokens": 56,
+  "out_tokens": 29,
+  "seconds": 26.4
+ },
+ "t4a_v1_13": {
+  "text": "Classification: Technical Support\n\nPriority: High\n\nExplanation:\nThe request for adding a second team member to an account falls under the category of technical support as it involves configuring or managing user accounts within a service platform. This type of issue typically requires specific knowledge about the system's configuration and may involve troubleshooting steps",
+  "in_tokens": 51,
+  "out_tokens": 60,
+  "seconds": 43.7
+ },
+ "t4a_v1_14": {
+  "text": "This support ticket should be classified as \"Priority 1\" for unlocking the account due to excessive login attempts. The urgency is high because an account lock can prevent users from accessing their accounts temporarily or permanently if not resolved promptly.",
+  "in_tokens": 54,
+  "out_tokens": 46,
+  "seconds": 31.6
+ },
+ "t4a_v1_15": {
+  "text": "To classify and prioritize your support ticket for updating your phone number on your profile, I'll need more information about what you're trying to do or any specific issues you might be facing. Could you please provide details such as:\n\n1. Your current status (e.g., account type: personal, business",
+  "in_tokens": 50,
+  "out_tokens": 60,
+  "seconds": 67.3
+ },
+ "t4a_v2_1": {
+  "text": "Billing | High",
+  "in_tokens": 200,
+  "out_tokens": 4,
+  "seconds": 21.0
+ },
+ "t4a_v2_2": {
+  "text": "Billing | Medium",
+  "in_tokens": 200,
+  "out_tokens": 4,
+  "seconds": 11.2
+ },
+ "t4a_v2_3": {
+  "text": "Billing | Low",
+  "in_tokens": 197,
+  "out_tokens": 4,
+  "seconds": 14.0
+ },
+ "t4a_v2_4": {
+  "text": "Billing | High",
+  "in_tokens": 201,
+  "out_tokens": 4,
+  "seconds": 10.1
+ },
+ "t4a_v2_5": {
+  "text": "Billing | Medium",
+  "in_tokens": 196,
+  "out_tokens": 4,
+  "seconds": 12.6
+ },
+ "t4a_v2_6": {
+  "text": "Technical | High",
+  "in_tokens": 198,
+  "out_tokens": 4,
+  "seconds": 10.1
+ },
+ "t4a_v2_7": {
+  "text": "Technical | High",
+  "in_tokens": 200,
+  "out_tokens": 4,
+  "seconds": 13.5
+ },
+ "t4a_v2_8": {
+  "text": "Technical | Low",
+  "in_tokens": 197,
+  "out_tokens": 4,
+  "seconds": 23.1
+ },
+ "t4a_v2_9": {
+  "text": "Technical | High",
+  "in_tokens": 204,
+  "out_tokens": 4,
+  "seconds": 13.3
+ },
+ "t4a_v2_10": {
+  "text": "Technical | Low",
+  "in_tokens": 203,
+  "out_tokens": 4,
+  "seconds": 12.8
+ },
+ "t4a_v2_11": {
+  "text": "Technical | High",
+  "in_tokens": 204,
+  "out_tokens": 4,
+  "seconds": 12.3
+ },
+ "t4a_v2_12": {
+  "text": "Technical | High",
+  "in_tokens": 200,
+  "out_tokens": 4,
+  "seconds": 14.0
+ },
+ "t4a_v2_13": {
+  "text": "Account | Low",
+  "in_tokens": 195,
+  "out_tokens": 4,
+  "seconds": 11.0
+ },
+ "t4a_v2_14": {
+  "text": "Account | High",
+  "in_tokens": 198,
+  "out_tokens": 4,
+  "seconds": 13.3
+ },
+ "t4a_v2_15": {
+  "text": "Account | Low",
+  "in_tokens": 194,
+  "out_tokens": 4,
+  "seconds": 12.4
+ },
+ "t4a_v3_1": {
+  "text": "Billing | High",
+  "in_tokens": 285,
+  "out_tokens": 4,
+  "seconds": 15.8
+ },
+ "t4a_v3_2": {
+  "text": "Billing | High",
+  "in_tokens": 285,
+  "out_tokens": 4,
+  "seconds": 29.7
+ },
+ "t4a_v3_3": {
+  "text": "Billing | High",
+  "in_tokens": 282,
+  "out_tokens": 4,
+  "seconds": 19.2
+ },
+ "t4a_v3_4": {
+  "text": "Billing | High",
+  "in_tokens": 286,
+  "out_tokens": 4,
+  "seconds": 12.3
+ },
+ "t4a_v3_5": {
+  "text": "Billing | Medium",
+  "in_tokens": 281,
+  "out_tokens": 4,
+  "seconds": 14.3
+ },
+ "t4a_v3_6": {
+  "text": "Technical | High",
+  "in_tokens": 283,
+  "out_tokens": 4,
+  "seconds": 22.2
+ },
+ "t4a_v3_7": {
+  "text": "Technical | High",
+  "in_tokens": 285,
+  "out_tokens": 4,
+  "seconds": 18.8
+ },
+ "t4a_v3_8": {
+  "text": "Technical | High",
+  "in_tokens": 282,
+  "out_tokens": 4,
+  "seconds": 21.8
+ },
+ "t4a_v3_9": {
+  "text": "Technical | High",
+  "in_tokens": 289,
+  "out_tokens": 4,
+  "seconds": 19.2
+ },
+ "t4a_v3_10": {
+  "text": "Technical | Low",
+  "in_tokens": 288,
+  "out_tokens": 4,
+  "seconds": 12.6
+ },
+ "t4a_v3_11": {
+  "text": "Account | High",
+  "in_tokens": 289,
+  "out_tokens": 4,
+  "seconds": 31.5
+ },
+ "t4a_v3_12": {
+  "text": "Account | High",
+  "in_tokens": 285,
+  "out_tokens": 4,
+  "seconds": 26.8
+ },
+ "t4a_v3_13": {
+  "text": "Account | Low",
+  "in_tokens": 280,
+  "out_tokens": 4,
+  "seconds": 26.5
+ },
+ "t4a_v3_14": {
+  "text": "Account | High",
+  "in_tokens": 283,
+  "out_tokens": 4,
+  "seconds": 20.0
+ },
+ "t4a_v3_15": {
+  "text": "Account | Low",
+  "in_tokens": 279,
+  "out_tokens": 4,
+  "seconds": 27.8
+ },
+ "t4b_m1_1": {
+  "text": "76",
+  "in_tokens": 72,
+  "out_tokens": 3,
+  "seconds": 17.1
+ },
+ "t4b_m1_2": {
+  "text": "150",
+  "in_tokens": 78,
+  "out_tokens": 4,
+  "seconds": 13.1
+ },
+ "t4b_m1_3": {
+  "text": "310",
+  "in_tokens": 76,
+  "out_tokens": 4,
+  "seconds": 8.5
+ },
+ "t4b_m1_4": {
+  "text": "48",
+  "in_tokens": 72,
+  "out_tokens": 3,
+  "seconds": 4.2
+ },
+ "t4b_m1_5": {
+  "text": "36",
+  "in_tokens": 69,
+  "out_tokens": 3,
+  "seconds": 11.6
+ },
+ "t4b_m2_1": {
+  "text": "Step 1: Calculate the total number of apples sold.\nThere are 3 boxes with 12 apples each, so:\n\\[ \\text{Total apples sold} = 3 \\times 12 = 36 \\]\n\nStep 2: Subtract the number of apples sold from the initial amount to find out how many apples were left after selling.\n\\[ \\text{Apples remaining after sale} = 48 - 36 = 12 \\]\n\nStep 3: Add the new apples received to the remaining apples.\n\\[ \\text{Final number of apples} = 12 + 20 = 32 \\]\n\nAnswer: 32",
+  "in_tokens": 83,
+  "out_tokens": 140,
+  "seconds": 150.8
+ },
+ "t4b_m2_2": {
+  "text": "To determine how much Priya saves, we need to follow these steps:\n\n1. Calculate her total earnings in one week.\n2. Multiply that weekly amount by the number of weeks she worked.\n3. Subtract her total spending from her total earnings.\n\nStep 1: Calculate her weekly earnings.\nPriya earns Rs 600 per day and works 5 days a week.\nWeekly earnings = Rs 600/day * 5 days/week = Rs 3000\n\nStep 2: Calculate her total earnings over 4 weeks.\nTotal earnings = Weekly earnings * Number of weeks\nTotal earnings = Rs 3000/week * 4 weeks = Rs 12000\n\nStep 3: Subtract her total spending from her total earnings.\nTotal savings = Total earnings - Total spending\nTotal savings = Rs 12000 - Rs 4500 = Rs 7500\n\nTherefore, Priya saves Rs 7500.\n\nAnswer: 7500",
+  "in_tokens": 89,
+  "out_tokens": 214,
+  "seconds": 187.3
+ },
+ "t4b_m2_3": {
+  "text": "Step 1: Calculate the initial amount of water in the tank.\nThe tank is initially 40% full with a capacity of 500 liters.\n\nInitial amount = 40/100 * 500 = 200 liters\n\nStep 2: Add 120 liters to the initial amount.\nNew total after adding 120 liters = Initial amount + 120 liters\n= 200 liters + 120 liters\n= 320 liters\n\nStep 3: Subtract 50 liters from the new total.\nFinal amount after using 50 liters = New total - 50 liters\n= 320 liters - 50 liters\n= 270 liters\n\nAnswer: 270 liters",
+  "in_tokens": 87,
+  "out_tokens": 167,
+  "seconds": 104.6
+ },
+ "t4b_m2_4": {
+  "text": "To determine the total number of notebooks brought to school, we need to follow these steps:\n\n1. **Calculate the number of boys in the class:**\n   - The total number of students is 30.\n   - \\( \\frac{2}{5} \\) of the students are girls.\n   - Therefore, the number of girls is:\n     \\[\n     \\text{Number of girls} = \\frac{2}{5} \\times 30 = 12\n     \\]\n   - Since there are 30 students in total and 12 of them are girls, the number of boys is:\n     \\[\n     \\text{Number of boys} = 30 - 12 = 18\n     \\]\n\n2. **Determine the number of notebooks each group (boys and girls) brings:**\n   - Each boy brings 3 notebooks.\n   - Each girl brings 2 notebooks.\n\n3. **Calculate the total number of notebooks brought by the boys:**\n   - Number of boys = 18\n   - Notebooks per boy = 3\n   - Total notebooks from boys:\n     \\[\n     \\text{Total notebooks from boys} = 18 \\times 3 = 54\n     \\]\n\n4. **Calculate the total number of notebooks brought by the girls:**\n   - Number of girls = 12\n   - Notebooks per girl = 2\n   - Total notebooks from girls:\n     \\[\n     \\text{Total notebooks from girls} = 12 \\times 2 = 24\n     \\]\n\n5. **Sum the total number of notebooks from both groups:**\n   - Total notebooks:\n     \\[\n     \\text{Total notebooks} = 54 + 24 = 78\n     \\]\n\nTherefore, the total number of notebooks brought to school is \\(\\boxed{78}\\).",
+  "in_tokens": 83,
+  "out_tokens": 398,
+  "seconds": 619.8
+ },
+ "t4b_m2_5": {
+  "text": "Let's denote the number of marbles Arun has as A and the number of marbles you have as Y.\n\nAccording to the problem:\n1) You have three times as many marbles as Arun: Y = 3A\n2) Together, you both have 48 marbles: Y + A = 48\n\nNow let's solve these equations:\n\nFrom equation (1), we can express A in terms of Y: A = Y/3\n\nSubstitute this into equation (2):\nY + Y/3 = 48\n\nMultiply through by 3 to clear the fraction:\n3Y + Y = 144\n\nCombine like terms:\n4Y = 144\n\nDivide by 4:\nY = 36\n\nSo, you have 36 marbles.\n\nAnswer: 36",
+  "in_tokens": 80,
+  "out_tokens": 175,
+  "seconds": 201.3
+ },
+ "t4c_s1_0": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 19.8
+ },
+ "t4c_s1_1": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 21.4
+ },
+ "t4c_s1_2": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 22.3
+ },
+ "t4c_s1_3": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 32.7
+ },
+ "t4c_s1_4": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 15.1
+ },
+ "t4c_s2_0": {
+  "text": "\"Chennai's Brew Treasure: Freshly Filtered Coffee at Your Doorstep!\"",
+  "in_tokens": 46,
+  "out_tokens": 18,
+  "seconds": 36.3
+ },
+ "t4c_s2_1": {
+  "text": "\"Fresh brews and cozy vibes at your doorstep—where every cup is art!\"",
+  "in_tokens": 46,
+  "out_tokens": 18,
+  "seconds": 14.3
+ },
+ "t4c_s2_2": {
+  "text": "\"Chill out with us and let the beans talk while you sip on our crisp, freshly brewed coffee.\"",
+  "in_tokens": 46,
+  "out_tokens": 23,
+  "seconds": 34.8
+ },
+ "t4c_s2_3": {
+  "text": "\"Every sip, crafted with love from our cozy, aromatic coffee beans.\"",
+  "in_tokens": 46,
+  "out_tokens": 16,
+  "seconds": 37.6
+ },
+ "t4c_s2_4": {
+  "text": "\"Chill out with our fresh brew at the quaint coffee spot in Chennai!\"",
+  "in_tokens": 46,
+  "out_tokens": 17,
+  "seconds": 27.2
+ },
+ "t4c_s3_0": {
+  "text": "\"Brewing Excellence in Every Precious Cup - Tap Into the Smell of Quality at JCharlotte Coffee!\"",
+  "in_tokens": 46,
+  "out_tokens": 23,
+  "seconds": 32.4
+ },
+ "t4c_s3_1": {
+  "text": "\"Espresso Beyond Borders: Local Brewsourcing from Our Chocolate-Covered Grind\"",
+  "in_tokens": 46,
+  "out_tokens": 20,
+  "seconds": 42.3
+ },
+ "t4c_s3_2": {
+  "text": "\"Chill out, sit bean-to-cup artisanally, forever fresh coffeeﺍﬃックス.\"",
+  "in_tokens": 46,
+  "out_tokens": 21,
+  "seconds": 30.9
+ },
+ "t4c_s3_3": {
+  "text": "\"Every Grind Delivers: Refreshing Coffee Small Batch | Chennai Espresso Corner\"",
+  "in_tokens": 46,
+  "out_tokens": 18,
+  "seconds": 26.5
+ },
+ "t4c_s3_4": {
+  "text": "\"Coffee Bean Bliss: Refine Your Brew onshore!\"",
+  "in_tokens": 46,
+  "out_tokens": 13,
+  "seconds": 14.3
+ },
+ "t4c_s4_0": {
+  "text": "\"Chill out with us and brew up the perfect cup of coffee in Chennai!\"",
+  "in_tokens": 46,
+  "out_tokens": 18,
+  "seconds": 33.3
+ },
+ "t4c_s4_1": {
+  "text": "\"Fresh Brews for Every Journey - Where Coffee Flavors Connect.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 48.9
+ },
+ "t4c_s4_2": {
+  "text": "\"Chill out with us and savor the perfect cup of coffee from our tiny but cozy filter-shop!\"",
+  "in_tokens": 46,
+  "out_tokens": 23,
+  "seconds": 17.8
+ },
+ "t4c_s4_3": {
+  "text": "\"Every sip, crafted with care, from the heart of Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 21.0
+ },
+ "t4c_s4_4": {
+  "text": "\"Chill out with us and savor the perfect cup of coffee from our tiny but cozy filter-shop in Chennai.\"",
+  "in_tokens": 46,
+  "out_tokens": 25,
+  "seconds": 40.5
+ },
+ "t4c_s5_0": {
+  "text": "\"Chennai's Art of Coffee – Freshly Filtered Every Morning.\"",
+  "in_tokens": 46,
+  "out_tokens": 16,
+  "seconds": 24.4
+ },
+ "t4c_s5_1": {
+  "text": "\"Espresso Elegance | Freshness Everlasting - Where the spirit of coffee meets South Indian charm.\"",
+  "in_tokens": 46,
+  "out_tokens": 23,
+  "seconds": 35.1
+ },
+ "t4c_s5_2": {
+  "text": "\"Chill out, brew up; enjoy the finest coffee from our cozy Chennaitte spot.\"",
+  "in_tokens": 46,
+  "out_tokens": 22,
+  "seconds": 38.4
+ },
+ "t4c_s5_3": {
+  "text": "\"Every sip sips at our cozy Chennai coffee spot!\"",
+  "in_tokens": 46,
+  "out_tokens": 13,
+  "seconds": 36.2
+ },
+ "t4c_s5_4": {
+  "text": "\"Coffee Bean Bliss: A Smaller Story of Brewed Excellence\"",
+  "in_tokens": 46,
+  "out_tokens": 15,
+  "seconds": 23.4
+ },
+ "t4d_plain_1": {
+  "text": "```json\n{\n  \"person\": {\n    \"name\": \"Ravi Kumar\",\n    \"location\": \"Chennai\"\n  },\n  \"skills\": [\n    \"Python\",\n    \"Django\",\n    \"PostgreSQL\",\n    \"Docker\",\n    \"AWS\"\n  ],\n  \"years_of_experience\": 4\n}\n```",
+  "in_tokens": 78,
+  "out_tokens": 70,
+  "seconds": 114.7
+ },
+ "t4d_json_1": {
+  "text": "{\"name\": \"Ravi Kumar\", \"skills\": [\"Python\", \"Django\", \"PostgreSQL\", \"Docker\"], \"years_experience\": 4}",
+  "in_tokens": 84,
+  "out_tokens": 30,
+  "seconds": 18.7
+ },
+ "t4d_plain_2": {
+  "text": "```json\n{\n  \"person\": {\n    \"name\": \"Meena Iyer\"\n  },\n  \"skills\": [\n    \"SQL\",\n    \"Excel\",\n    \"Power BI\",\n    \"Python\"\n  ],\n  \"years_of_experience\": 7\n}\n```",
+  "in_tokens": 75,
+  "out_tokens": 57,
+  "seconds": 68.6
+ },
+ "t4d_json_2": {
+  "text": "{\"name\": \"Meena Iyer\", \"skills\": [\"SQL\", \"Excel\", \"Power BI\", \"Python\"], \"years_experience\": 7}",
+  "in_tokens": 81,
+  "out_tokens": 29,
+  "seconds": 24.2
+ },
+ "t4d_plain_3": {
+  "text": "```json\n{\n  \"person\": {\n    \"name\": \"Arjun S\",\n    \"years_of_experience\": 0.5,\n    \"skills\": [\n      \"React\",\n      \"Node.js\",\n      \"Git\"\n    ]\n  }\n}\n```",
+  "in_tokens": 86,
+  "out_tokens": 54,
+  "seconds": 45.8
+ },
+ "t4d_json_3": {
+  "text": "{\"name\": \"Arjun S\", \"skills\": [\"React\", \"Node.js\", \"Git\"], \"years_experience\": 0.5}",
+  "in_tokens": 92,
+  "out_tokens": 27,
+  "seconds": 22.0
+ },
+ "t4d_plain_4": {
+  "text": "```json\n{\n  \"person\": {\n    \"name\": \"Dr. Fatima Khan\"\n  },\n  \"skills\": [\n    \"ML engineer\",\n    \"PyTorch\",\n    \"NLP\",\n    \"computer vision\",\n    \"MLOps (Kubeflow)\"\n  ],\n  \"years_of_experience\": 9\n}\n```",
+  "in_tokens": 81,
+  "out_tokens": 73,
+  "seconds": 86.0
+ },
+ "t4d_json_4": {
+  "text": "{\"name\": \"Dr. Fatima Khan\", \"skills\": [\"PyTorch\", \"NLP\", \"computer vision\", \"MLOps (Kubeflow)\"], \"years_experience\": 9}",
+  "in_tokens": 87,
+  "out_tokens": 41,
+  "seconds": 84.5
+ },
+ "t4d_plain_5": {
+  "text": "```json\n{\n  \"person\": {\n    \"name\": \"Karthik\"\n  },\n  \"skills\": [\n    \"QA\",\n    \"Selenium\",\n    \"JIRA\",\n    \"DevOps\",\n    \"Jenkins\",\n    \"Kubernetes\",\n    \"Terraform\"\n  ],\n  \"years_of_experience\": [\n    2,\n    3\n  ]\n}\n```",
+  "in_tokens": 79,
+  "out_tokens": 82,
+  "seconds": 131.0
+ },
+ "t4d_json_5": {
+  "text": "{\"name\": \"Karthik\", \"skills\": [\"QA (Selenium, JIRA)\", \"DevOps (Jenkins, Kubernetes, Terraform)\"], \"years_experience\": 5}",
+  "in_tokens": 85,
+  "out_tokens": 37,
+  "seconds": 24.2
+ },
+ "t4e_bad_1": {
+  "text": "I'm sorry to hear that you received your order at the wrong address. This is clearly an issue with delivery errors or miscommunication between you and the seller.\n\nTo resolve this situation, here's what you can do:\n\n1. Contact the seller directly:\n   - Reach out via email or phone to inform them of the mistake.\n   - Provide them with your order number (45120) and confirm the correct address where the item should be delivered.\n\n2. Request a refund or replacement:\n   - Explain why the delivery error occurred and how it affects your needs.\n   - Ask for",
+  "in_tokens": 61,
+  "out_tokens": 120,
+  "seconds": 150.1
+ },
+ "t4e_good_1": {
+  "text": "Shipping",
+  "in_tokens": 83,
+  "out_tokens": 2,
+  "seconds": 9.7
+ },
+ "t4e_bad_2": {
+  "text": "The order number is 45120 and the city mentioned is Coimbatore.",
+  "in_tokens": 65,
+  "out_tokens": 21,
+  "seconds": 36.1
+ },
+ "t4e_good_2": {
+  "text": "```json\n{\"order_id\": \"45120\", \"city\": \"Coimbatore\"}\n```",
+  "in_tokens": 84,
+  "out_tokens": 25,
+  "seconds": 38.4
+ },
+ "t4e_bad_3": {
+  "text": "The summary of this review is \"Disappointed\". \n\nThree reasons for this summary:\n\n1. **Battery Failure**: The primary reason for disappointment is the malfunctioning battery that caused the device to stop working within an hour of purchase. This indicates poor quality control and reliability issues from the manufacturer or seller.\n\n2. **Customer Support Issues**: The lack of response from customer support further contributes to the negative experience. When faced with a problem, especially one as critical as a non-functioning battery, having no way to resolve it promptly can be frustrating and lead to dissatisfaction.\n\n3. **Decision to Avoid Future",
+  "in_tokens": 70,
+  "out_tokens": 120,
+  "seconds": 144.5
+ },
+ "t4e_good_3": {
+  "text": "Negative",
+  "in_tokens": 70,
+  "out_tokens": 2,
+  "seconds": 3.9
+ }
+}
